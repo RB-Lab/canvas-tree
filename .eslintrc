@@ -1,0 +1,26 @@
+{
+	"extends": "airbnb/base",
+	"rules": {
+		"comma-dangle": [2, "never"],
+		"indent": [1, "tab"],
+		"space-before-blocks": 0,
+		"space-before-function-paren": 0,
+		"object-curly-spacing": 0,
+		"space-after-keywords": 0,
+		"radix": 0,
+		"semi": 1,
+		"space-return-throw-case": 1,
+		"spaced-comment": 0,
+		"no-multi-spaces": 1,
+		"no-trailing-spaces": 0,
+		"eol-last": 0,
+		"key-spacing": 1,
+		"comma-spacing": 1,
+		"space-infix-ops": 1,
+
+		"prefer-const": 0,
+		"no-var": 1,
+		"one-var": [1, {"initialized": "never"}],
+		"padded-blocks": 1
+	}
+}
