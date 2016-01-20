@@ -8,8 +8,7 @@ function getStyle(context, object) {
 	if(context.hoveredObject === object) return assign({}, style, hoverStyle);
 	return style;
 }
-
-export default function draw(context) {
+function redraw_(context) {
 	clear(context);
 	forEach(context.pathObjects, (obj) => {
 		if(!obj.node.style || !obj.path) return;
@@ -17,4 +16,7 @@ export default function draw(context) {
 		context.ctx.stroke(obj.path);
 		context.ctx.fill(obj.path);
 	});
+}
+export default function draw(context) {
+	window.requestAnimationFrame(() => redraw_(context));
 }

@@ -23,7 +23,8 @@ function destroyCanvas(){
 
 export default function createCanvas(canvas_) {
 	const canvas = {
-		dragFlag: 0,
+		dragFlag: 0, // set on mouse downd, flag if move should drag
+		draggingFlag: false, // set on mouse move, flag if click should be handled
 		dx: 0,
 		dy: 0,
 		zoom: 1,

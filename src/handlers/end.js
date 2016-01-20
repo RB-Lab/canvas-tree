@@ -1,33 +1,23 @@
-import {assign} from 'lodash';
+import {get} from 'lodash';
 
 import getXY from '../utils/get-xy';
-import getObject from '../utils/get-object';
+import createEvent from '../utils/event';
 
-export default context => e => {
-	if(!context.dragFlag) return context;
-	let c = getXY(e);
-	let object = getObject(c.x, c.y);
-	if(object && object.handlers.onDragEnd){
-		object.handlers.onDragEnd(
-			c.x - context.dx,
-			c.y - context.dy,
-			context.dragObject.object,
-			object.object
-		);
+export default function handleEnd(e){
+	if(!this.dragFlag) return;
+	const c = getXY(e);
+	const object = this.getObject(c.x, c.y);
+	const onDragEndHandler = get(object, 'node.handlers.onDragEnd');
+	const selfDragEndHandler = get(this.dragObject, 'node.handlers.onDragEnd');
+	if(typeof onDragEndHandler === 'function'){
+		onDragEndHandler(createEvent(c.x, c.y, object, {dragged: this.dragObject}));
 	} else
-	if (context.dragObject.handlers.onDragEnd){
-		context.dragObject.handlers.onDragEnd(
-			c.x - context.dx,
-			c.y - context.dy,
-			context.dragObject.object,
-			null
-		);
+	if (typeof selfDragEndHandler === 'function'){
+		selfDragEndHandler(createEvent(c.x, c.y, object, {dragged: this.dragObject}));
 	}
-	context.canvas.style.cursor = 'default'; // eslint-disable-line 
-	return assign({}, context, {
-		dragFlag: false,
-		dx: 0,
-		dy: 0,
-		dragObject: null
-	});
-};
+	this.canvas.style.cursor = 'default';
+	this.dragFlag = false;
+	this.dx = 0;
+	this.dy = 0;
+	this.dragObject = null;
+}
