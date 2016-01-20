@@ -1,4 +1,4 @@
-export default function createEvent(x, y, node){
-	if(!x || !y || !node) throw new Error('attempt to make invalid event');
-	return {x, y, node};
+export default function createEvent(x, y, object){
+	if(!x || !y || !object) throw new Error('attempt to make invalid event');
+	return {x, y, node: object.node};
 }

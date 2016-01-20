@@ -1,5 +1,3 @@
-import {forEach} from 'lodash';
-
 import handleClick from './handlers/click';
 import handleDblClick from './handlers/dbl-click';
 import handleStart from './handlers/start';
@@ -8,21 +6,14 @@ import handleMove from './handlers/move';
 import handleZoom from './handlers/zoom';
 
 import getObject from './utils/get-object';
-import clear from './utils/clear';
+import redraw from './utils/redraw';
 import makePaths from './utils/make-paths';
-import canvasStyles from 'canvas-styles';
 
 function updateCanvas(newTree) {
 	const pathObjects = newTree ? makePaths(newTree) : this.pathObjects;
-	clear(this);
-	forEach(pathObjects, ({path, node}) => {
-		if(!node.style || !path) return;
-		canvasStyles.applyStyles(this.ctx, node.style);
-		this.ctx.stroke(path);
-		this.ctx.fill(path);
-	});
 	this.canvasObject = {handlers: newTree.handlers};
 	this.pathObjects = pathObjects;
+	redraw(this);
 }
 
 function destroyCanvas(){
@@ -35,8 +26,9 @@ export default function createCanvas(canvas_) {
 		dragFlag: 0,
 		dx: 0,
 		dy: 0,
-		zoom: 0,
+		zoom: 1,
 		dragObject: null,
+		hoveredObject: null,
 		canvas: canvas_,
 		ctx: canvas_.getContext('2d')
 	};
