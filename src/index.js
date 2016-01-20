@@ -33,11 +33,13 @@ export default function createCanvas(canvas_) {
 		canvas: canvas_,
 		ctx: canvas_.getContext('2d')
 	};
+
+	
 	canvas.update = updateCanvas.bind(canvas);
 	canvas.destroy = destroyCanvas.bind(canvas);
 	canvas.getObject = getObject.bind(canvas);
 	canvas_.addEventListener('click', handleClick.bind(canvas));
-	canvas_.addEventListener('doubleclick', handleDblClick.bind(canvas));
+	canvas_.addEventListener('dblclick', handleDblClick.bind(canvas));
 	canvas_.addEventListener('mousedown', handleStart.bind(canvas));
 	canvas_.addEventListener('mouseup', handleEnd.bind(canvas));
 	canvas_.addEventListener('mousemove', handleMove.bind(canvas));

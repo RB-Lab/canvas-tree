@@ -1,11 +1,12 @@
+import {get} from 'lodash';
 import getXY from '../utils/get-xy';
-import getObject from '../utils/get-object';
+import createEvent from '../utils/event';
 
-export default context => e => {
+export default function handleDblClick(e){
 	let c = getXY(e);
-	let object = getObject(context, c.x, c.y);
-	if(object && object.handlers.onDoubleClick){
-		object.handlers.onDoubleClick(object.object);
+	let object = this.getObject(c.x, c.y);
+	const dblclickHandler = get(object, 'node.handlers.onDoubleClick');
+	if(dblclickHandler){
+		dblclickHandler(createEvent(c.x, c.y, object));
 	}
-	return context;
-};
+}
