@@ -2,15 +2,13 @@ import {get} from 'lodash';
 import getXY from '../utils/get-xy';
 import createEvent from '../utils/event';
 import redraw from '../utils/redraw';
+import styleCursor from '../utils/style-cursor';
 
 export default function handleMove(e){
 	// 1. first - handle hover
 	const {x, y} = getXY(e);
 	const object = this.getObject(x, y);
-	if(!this.dragFlag){
-		const cursor = get(object, 'node.style.cursor');
-		this.canvas.style.cursor = cursor || 'default';
-	}
+	styleCursor(this, object);
 	if(this.hoveredObject !== object) {
 		this.hoveredObject = object;
 		redraw(this);
