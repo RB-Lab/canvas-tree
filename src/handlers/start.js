@@ -1,27 +1,27 @@
 import {get} from 'lodash';
 
 import getXY from '../utils/get-xy';
+import getCanvasXY from '../utils/get-canvas-xy';
 
-import getZoomedXY from '../utils/get-zoomed-xy';
 import createEvent from '../utils/event';
 
 export default function handleStart(e){
-	const c = getZoomedXY(this, e);
-	const actualC = getXY(e);
-	const object = this.getObject(actualC.x, actualC.y);
-	if(!object) return;
+	const {x, y} = getXY(e);
+	const object = this.getObject(x, y);
 	const onDragStartHandler = get(object, 'node.handlers.onDragStart');
 	const onDragHandler = get(object, 'node.handlers.onDrag');
 	if(typeof onDragStartHandler === 'function') {
-		onDragStartHandler(createEvent(c.x, c.y, object));
+		onDragStartHandler(createEvent(this, x, y, object));
 	}
 
-	if(typeof onDragHandler !== 'function') return;
+	if(typeof onDragHandler !== 'function' && !object.rootNode) return;
 	const top = get(object, 'node.style.top', 0);
 	const left = get(object, 'node.style.left', 0);
-	this.dragFlag = true;
+	this.panFlag = object.rootNode;
+	this.dragFlag = !object.rootNode;
 	this.dragObject = object;
 	this.canvas.style.cursor = 'move';
-	this.dx = c.x - left;
-	this.dy = c.y - top;
+	const canvasXY = getCanvasXY(this.matrix, x, y);
+	this.dx = this.panFlag ? x : canvasXY.x - left;
+	this.dy = this.panFlag ? y : canvasXY.y - top;
 }
