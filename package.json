@@ -6,7 +6,8 @@
   "scripts": {
     "test": "karma start",
     "build": "rm -rf lib/ && mkdir lib/ && babel src/ --out-dir lib/ --ignore __tests__ ",
-    "start": "rm -rf lib/ && mkdir lib/ && babel src/ --watch --out-dir lib/ --ignore __tests__ "
+    "start": "rm -rf lib/ && mkdir lib/ && babel src/ --watch --out-dir lib/ --ignore __tests__ ",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
