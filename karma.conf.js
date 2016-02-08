@@ -1,6 +1,3 @@
-/*eslint-disable no-var */
-var webpackConfig = require('./webpack/config');
-
 module.exports = function conf(config) {
 	config.set({
 		frameworks: ['mocha', 'sinon-chai'],
@@ -13,7 +10,6 @@ module.exports = function conf(config) {
 		],
 		files: [
 			'./node_modules/phantomjs-polyfill/bind-polyfill.js',
-			'./node_modules/array.from/array-from.js',
 			'src/**/*.test.js'
 		],
 		preprocessors: {
@@ -25,15 +21,24 @@ module.exports = function conf(config) {
 					{
 						test: /\.js/,
 						loader: 'babel',
-						query: {presets: ['es2015', 'stage-0', 'react'], plugins: ['rewire']},
+						query: {presets: ['es2015']},
 						exclude: /(node_modules)/
-					},
-					{test: /\.scss/, loader: 'css!sass'}
+					}
 				]
 			}
 		},
 		webpackMiddleware: {
-			stats: webpackConfig.stats
+			stats: { // The stats actually used in build and dev-server scripts
+				colors: true,
+				reasons: false,
+				hash: false,
+				version: false,
+				timings: false,
+				chunks: false,
+				chunkModules: false,
+				cached: false,
+				cachedAssets: false
+			}
 		},
 		reporters: ['mocha'],
 		port: 9876,
@@ -45,5 +50,3 @@ module.exports = function conf(config) {
 		concurrency: Infinity
 	});
 };
-
-/*eslint-enable no-vars*/

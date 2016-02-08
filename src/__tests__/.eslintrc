@@ -1,1 +1,13 @@
-../../../../__tests__/.eslintrc
+{
+	"env": {
+		"mocha": true
+	},
+	"globals": {
+		"expect": true,
+		"sinon": true
+	},
+	"rules": {
+		"camelcase": 0,
+		"no-unused-expressions": 0
+	}
+}
