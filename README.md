@@ -36,7 +36,6 @@ where:
  - **createCanvas(element)** - creates `canvasTree` object
 	- `element` canvas DOMElement
  - **canvasTree.update(tree)** - render tree on canvas
- - **canvasTree.destroy()** - remove handlers from canvas
 
 ### Install
 
@@ -45,6 +44,9 @@ where:
 ```
 
 #### Example usage
+
+This will make a canvas where you can add circles when click and then move those circles
+by dragging and dropping them.
 
 ```javascript
 	import createCanvas from 'canvas-tree';

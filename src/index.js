@@ -19,10 +19,6 @@ function updateCanvas(newTree) {
 	this.redraw = redraw.bind(null, this);
 }
 
-function destroyCanvas(){
-	debugger;
-}
-
 
 export default function createCanvas(canvasElement) {
 	const canvas = {
@@ -47,18 +43,24 @@ export default function createCanvas(canvasElement) {
 
 	window.c = canvas;
 	canvas.update = updateCanvas.bind(canvas);
-	canvas.destroy = destroyCanvas.bind(canvas);
 	canvas.getObject = getObject.bind(canvas);
 	canvas.translate_ = translate.bind(canvas);
 	canvas.scale_ = scale.bind(canvas);
 	canvas.translate_ = translate.bind(canvas);
 
-	canvasElement.addEventListener('click', handleClick.bind(canvas));
-	canvasElement.addEventListener('dblclick', handleDblClick.bind(canvas));
-	canvasElement.addEventListener('mousedown', handleStart.bind(canvas));
-	canvasElement.addEventListener('mouseup', handleEnd.bind(canvas));
-	canvasElement.addEventListener('mousemove', handleMove.bind(canvas));
-	canvasElement.addEventListener('wheel', handleZoom.bind(canvas));
+	canvas.handleClick_ = handleClick.bind(canvas);
+	canvas.handleDblClick_ = handleDblClick.bind(canvas);
+	canvas.handleStart_ = handleStart.bind(canvas);
+	canvas.handleEnd_ = handleEnd.bind(canvas);
+	canvas.handleMove_ = handleMove.bind(canvas);
+	canvas.handleZoom_ = handleZoom.bind(canvas);
+
+	canvasElement.addEventListener('click', canvas.handleClick_);
+	canvasElement.addEventListener('dblclick', canvas.handleDblClick_);
+	canvasElement.addEventListener('mousedown', canvas.handleStart_);
+	canvasElement.addEventListener('mouseup', canvas.handleEnd_);
+	canvasElement.addEventListener('mousemove', canvas.handleMove_);
+	canvasElement.addEventListener('wheel', canvas.handleZoom_);
 
 	return canvas;
 }
