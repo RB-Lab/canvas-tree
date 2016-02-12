@@ -1,5 +1,5 @@
 import {forEach, assign, get} from 'lodash';
-import canvasStyles from 'canvas-styles';
+import applyStyles from './apply-styles';
 import clear from './clear';
 
 function getStyle(context, object) {
@@ -12,7 +12,7 @@ function redraw_(context) {
 	clear(context);
 	forEach(context.pathObjects, (obj) => {
 		if(!obj.node.style || !obj.path) return;
-		canvasStyles.applyStyles(context.ctx, getStyle(context, obj));
+		applyStyles(context.ctx, getStyle(context, obj));
 		context.ctx.stroke(obj.path);
 		context.ctx.fill(obj.path);
 	});
