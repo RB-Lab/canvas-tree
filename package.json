@@ -45,6 +45,7 @@
     "webpack": "^1.12.13"
   },
   "dependencies": {
+    "canvas-styles": "0.0.1",
     "lodash": "^4.0.0"
   }
 }
