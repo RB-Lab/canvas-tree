@@ -4,7 +4,7 @@ You should feed the `canvas-tree` with tree-structured object, consist of next f
 
 ```javascript
     {
-        getometry: geometyFunction,
+        geometry: geometyFunction,
         style: styleObject,
         children: [/* child nodes */],
         handlers: {
@@ -13,7 +13,7 @@ You should feed the `canvas-tree` with tree-structured object, consist of next f
     }
 ```
 where:
-- **getometry:** is a function that returns a Path2D instance. There are some
+- **geometry:** is a function that returns a Path2D instance. There are some
     separate modules presenting geometries:
     - [canvas-rounded-rectangle](https://www.npmjs.com/package/canvas-rounded-rectangle)
     - [canvas-label](https://www.npmjs.com/package/canvas-label)
@@ -93,7 +93,7 @@ by dragging and dropping them.
             tree.children[tree.children.length - 1].id + 1;
         const newNode = {
             id,
-            getometry: circle,
+            geometry: circle,
             style: Object.assign({}, nodeStyle, {top: e.y, left: e.x}),
             handlers: {
                 onDrag: dragNode
