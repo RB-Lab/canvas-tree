@@ -21,7 +21,7 @@ export default function applyStyles(ctx,
 		top,
 		left,
 		stroke,
-		strokeWidth,
+		strokeWidth = 0,
 		strokeStyle
 	}, path
 ){
@@ -40,7 +40,7 @@ export default function applyStyles(ctx,
 		}
 	}
 
-	if(stroke) ctx.stroke(path);
+	if(stroke && strokeWidth) ctx.stroke(path);
 	if(fill) ctx.fill(path);
 
 	if(content) {
