@@ -17,21 +17,16 @@ export default function applyStyles(ctx,
 		fontSize = 16,
 		fontFamily = 'sans-serif',
 		textAlign = 'left',
+		content,
+		top,
+		left,
 		stroke,
 		strokeWidth,
 		strokeStyle
-	}
+	}, path
 ){
-	if(fill || color){
-		ctx.fillStyle = fill || color;
-	}
-
-	ctx.font = `${fontSize}px ${fontFamily}`;
-	ctx.textAlign = textAlign;
-
-	if(stroke){
-		ctx.strokeStyle = stroke;
-	}
+	if(fill) ctx.fillStyle = fill;
+	if(stroke) ctx.strokeStyle = stroke;
 
 	if(strokeWidth){
 		ctx.lineWidth = strokeWidth;
@@ -43,6 +38,16 @@ export default function applyStyles(ctx,
 		} else {
 			ctx.setLineDash([]);
 		}
+	}
+
+	if(stroke) ctx.stroke(path);
+	if(fill) ctx.fill(path);
+
+	if(content) {
+		ctx.font = `${fontSize}px ${fontFamily}`;
+		ctx.textAlign = textAlign;
+		ctx.fillStyle = color;
+		ctx.fillText(content, top, left);
 	}
 }
 /* eslint-enable no-param-reassign */

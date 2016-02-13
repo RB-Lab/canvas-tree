@@ -12,9 +12,7 @@ function redraw_(context) {
 	clear(context);
 	forEach(context.pathObjects, (obj) => {
 		if(!obj.node.style || !obj.path) return;
-		applyStyles(context.ctx, getStyle(context, obj));
-		context.ctx.stroke(obj.path);
-		context.ctx.fill(obj.path);
+		applyStyles(context.ctx, getStyle(context, obj), obj.path);
 	});
 }
 export default function draw(context) {
