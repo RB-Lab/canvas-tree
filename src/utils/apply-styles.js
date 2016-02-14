@@ -47,7 +47,7 @@ export default function applyStyles(ctx,
 		ctx.font = `${fontSize}px ${fontFamily}`;
 		ctx.textAlign = textAlign;
 		ctx.fillStyle = color;
-		ctx.fillText(content, top, left);
+		ctx.fillText(content, left, top);
 	}
 }
 /* eslint-enable no-param-reassign */
