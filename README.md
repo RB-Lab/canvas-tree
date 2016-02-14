@@ -1,4 +1,4 @@
-## canvas-tree: Render tree structures into HTML5-canvas
+## canvas-tree: declarative rendering of tree structures into HTML5-canvas
 
 You should feed the `canvas-tree` with tree-structured object, consist of next fields:
 
@@ -6,7 +6,7 @@ You should feed the `canvas-tree` with tree-structured object, consist of next f
     {
         geometry: geometyFunction,
         style: styleObject,
-        children: [/* child nodes */],
+        children: [/* child nodes following the same pattern */],
         handlers: {
             onClick: function(){}
         }
@@ -17,9 +17,9 @@ where:
     separate modules presenting geometries:
     - [canvas-rounded-rectangle](https://www.npmjs.com/package/canvas-rounded-rectangle)
     - [canvas-label](https://www.npmjs.com/package/canvas-label)
-    - canvas-circle (coming soon)
-    - canvas-s-line (coming soon)
-    - etc. (coming not very soon)
+    - [canvas-circle](https://www.npmjs.com/package/canvas-circle)
+    - [canvas-s-line](https://www.npmjs.com/package/canvas-s-line)
+    - ...more modules coming soon...
 - **style:** a css-like style object. The properties are: `fill`, `stroke`,
     `strokeWidth`, `cursor`, `hover` (sub-object of the same type) and some
     geometry-specific properties such as `radius` for circle
@@ -50,7 +50,7 @@ by dragging and dropping them.
 
 ```javascript
     import createCanvas from 'canvas-tree';
-    import circle from 'circle';
+    import circle from 'canvas-circle';
 
     const nodeStyle = {
         radius: 10,
@@ -64,7 +64,8 @@ by dragging and dropping them.
         }
     };
 
-    const tree = { // root node is canvas itself
+    // the storage
+    let tree = { // root node represents canvas itself
         children: [],
         handlers: { // these are handlers for canvas
             onClick: addNode
@@ -79,10 +80,10 @@ by dragging and dropping them.
         const newNode = assign({}, e.node, {
             style: Object.assign({}, e.node.style, {top: e.y, left: e.x})
         });
-        const newChildren = this.tree.children.slice();
+        const newChildren = tree.children.slice();
         const i = newChildren.indexOf(newChildren.find(n => n.id === e.node.id));
         newChildren[i] = newNode;
-        tree = Object.assign({}, this.tree, {
+        tree = Object.assign({}, tree, {
             children: newChildren
         });
         canvas.update(tree);
