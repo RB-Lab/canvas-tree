@@ -1,8 +1,8 @@
-import {get} from 'lodash';
 import getXY from '../utils/get-xy';
-import createEvent from '../utils/event';
 import redraw from '../utils/redraw';
 import styleCursor from '../utils/style-cursor';
+import checkHandler from './check-handler';
+
 
 export default function handleMove(e){
 	// 1. first - handle hover
@@ -23,7 +23,5 @@ export default function handleMove(e){
 		redraw(this);
 		return;
 	}
-	const onDragHandler = get(this.dragObject, 'node.handlers.onDrag');
-	const event = createEvent(this, x, y, this.dragObject);
-	onDragHandler(event);
+	checkHandler(this, 'onDrag')(this.dragObject, x, y);
 }

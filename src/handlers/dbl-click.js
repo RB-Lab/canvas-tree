@@ -1,12 +1,7 @@
-import {get} from 'lodash';
 import getXY from '../utils/get-xy';
-import createEvent from '../utils/event';
+import checkHandler from './check-handler';
 
 export default function handleDblClick(e){
-	let c = getXY(e);
-	let object = this.getObject(c.x, c.y);
-	const dblclickHandler = get(object, 'node.handlers.onDoubleClick');
-	if(dblclickHandler){
-		dblclickHandler(createEvent(this, c.x, c.y, object));
-	}
+	const {x, y} = getXY(e);
+	checkHandler(this, 'onDoubleClick')(this.getObject(x, y), x, y);
 }

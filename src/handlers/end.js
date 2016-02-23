@@ -1,21 +1,13 @@
-import {get} from 'lodash';
-
 import getXY from '../utils/get-xy';
-import createEvent from '../utils/event';
+import checkHandler from './check-handler';
 
 export default function handleEnd(e){
 	this.panFlag = false;
 	if(!this.dragFlag) return;
 	const {x, y} = getXY(e);
 	const object = this.getObject(x, y);
-	const onDragEndHandler = get(object, 'node.handlers.onDragEnd');
-	const selfDragEndHandler = get(this.dragObject, 'node.handlers.onDragEnd');
-	if(typeof onDragEndHandler === 'function'){
-		onDragEndHandler(createEvent(this, x, y, object, {dragged: this.dragObject}));
-	} else
-	if (typeof selfDragEndHandler === 'function'){
-		selfDragEndHandler(createEvent(this, x, y, object, {dragged: this.dragObject}));
-	}
+	checkHandler(this, 'onDragEnd')(object, x, y);
+	checkHandler(this, 'onDragEnd')(this.dragObject, x, y);
 	this.canvas.style.cursor = 'default';
 	this.dragFlag = false;
 	this.panFlag = false;

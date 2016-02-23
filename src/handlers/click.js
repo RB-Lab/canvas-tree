@@ -1,6 +1,7 @@
 import getXY from '../utils/get-xy';
-import createEvent from '../utils/event';
 import styleCursor from '../utils/style-cursor';
+import checkHandler from './check-handler';
+
 
 export default function handleClick(e){
 	if(this.draggingFlag){
@@ -9,8 +10,6 @@ export default function handleClick(e){
 	}
 	const c = getXY(e);
 	const object = this.getObject(c.x, c.y);
-	if(object && typeof object.node.handlers.onClick === 'function'){
-		object.node.handlers.onClick(createEvent(this, c.x, c.y, object));
-	}
+	checkHandler(this, 'onClick')(object, c.x, c.y);
 	styleCursor(this, object);
 }

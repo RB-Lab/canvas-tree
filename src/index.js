@@ -23,7 +23,8 @@ function updateCanvas(newTree) {
 export default function createCanvas(canvasElement) {
 	const canvas = {
 		dragFlag: 0, // set on mouse downd, flag if move should drag
-		draggingFlag: false, // set on mouse move, flag if click should be handled
+		draggingFlag: false, // set on mouse move, flag if click should be handled...
+			// ...(when there were no mouseMove betweeen mouseDown and mouseUp)
 		panFlag: false,
 		dx: 0,
 		dy: 0,
