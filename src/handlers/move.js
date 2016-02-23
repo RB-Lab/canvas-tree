@@ -17,7 +17,7 @@ export default function handleMove(e){
 	if(!this.dragFlag && !this.panFlag) return;
 	this.draggingFlag = true;
 	if(this.panFlag){
-		this.translate_((x - this.dx), (y - this.dy));
+		this.translate_((x - this.dx) / this.matrix[0], (y - this.dy) / this.matrix[3]);
 		this.dx += x - this.dx;
 		this.dy += y - this.dy;
 		redraw(this);
