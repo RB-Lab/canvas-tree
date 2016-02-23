@@ -24,8 +24,6 @@ export default function handleMove(e){
 		return;
 	}
 	const onDragHandler = get(this.dragObject, 'node.handlers.onDrag');
-	const mX = x - this.dx;
-	const mY = y - this.dy;
-	const event = createEvent(this, mX, mY, this.dragObject);
+	const event = createEvent(this, x, y, this.dragObject);
 	onDragHandler(event);
 }

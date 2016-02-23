@@ -5,6 +5,7 @@ import clear from './clear';
 function getStyle(context, object) {
 	const style = get(object, 'node.style');
 	const hoverStyle = get(object, 'node.style.hover');
+	// fixme but you'll never have dragging object that way, because dragging cause rebuild whole tree
 	if(context.hoveredObject === object) return assign({}, style, hoverStyle);
 	return style;
 }
