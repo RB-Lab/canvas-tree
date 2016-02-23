@@ -2,21 +2,39 @@ import {get} from 'lodash';
 
 import getXY from '../utils/get-xy';
 import getCanvasXY from '../utils/get-canvas-xy';
+import styleCursor from '../utils/style-cursor';
 import checkHandler from './check-handler';
+
+function getDragObject(object){
+	if(!object) return false;
+	if(typeof get(object, 'node.handlers.onDrag') === 'function') return object;
+	return getDragObject(object.parent);
+}
 
 export default function handleStart(e){
 	const {x, y} = getXY(e);
 	const object = this.getObject(x, y);
-	const onDragHandler = get(object, 'node.handlers.onDrag');
+	// first - call direct handler
 	checkHandler(this, 'onDragStart')(object, x, y);
-	if(typeof onDragHandler !== 'function' && !object.rootNode) return;
-	const top = get(object, 'node.style.top', 0);
-	const left = get(object, 'node.style.left', 0);
-	this.panFlag = object.rootNode;
-	this.dragFlag = !object.rootNode;
-	this.dragObject = object;
-	this.canvas.style.cursor = 'move';
+	// then deal with pan mode - if it is root node
+	if(object.rootNode){
+		this.canvas.style.cursor = 'move';
+		this.panFlag = true;
+		this.dragFlag = false;
+		this.dx = x;
+		this.dy = y;
+		return;
+	}
+	// then - handle drag mode
+	const dragObject = getDragObject(object);
+	if(!dragObject) return;
+	this.panFlag = false;
+	this.dragFlag = true;
+	styleCursor(this, dragObject);
+	const top = get(dragObject, 'node.style.top', 0);
+	const left = get(dragObject, 'node.style.left', 0);
+	this.dragObject = dragObject;
 	const canvasXY = getCanvasXY(this.matrix, x, y);
-	this.dx = this.panFlag ? x : canvasXY.x - left;
-	this.dy = this.panFlag ? y : canvasXY.y - top;
+	this.dx = canvasXY.x - left;
+	this.dy = canvasXY.y - top;
 }
