@@ -39,15 +39,24 @@ export default function createCanvas(canvasElement) {
 		dragObject: null,
 		hoveredObject: null,
 		canvas: canvasElement,
-		ctx: canvasElement.getContext('2d')
+		ctx: canvasElement.getContext('2d'),
+		matrixListener_: null
 	};
 
-	window.c = canvas;
+	// API methdos
 	canvas.update = updateCanvas.bind(canvas);
+	canvas.setMatrixListener = listener => {
+		if(typeof listener === 'function') canvas.matrixListener_ = listener;
+	};
+	canvas.setMatrix = matirx => {
+		canvas.matrix = matirx;
+		canvas.ctx.setTransform.apply(canvas.ctx, matirx);
+		if(this.matrixListener_) this.matrixListener_(this.matrix);
+	};
+
 	canvas.getObject_ = getObject.bind(canvas);
 	canvas.translate_ = translate.bind(canvas);
 	canvas.scale_ = scale.bind(canvas);
-	canvas.translate_ = translate.bind(canvas);
 
 	canvas.handleClick_ = handleClick.bind(canvas);
 	canvas.handleDblClick_ = handleDblClick.bind(canvas);

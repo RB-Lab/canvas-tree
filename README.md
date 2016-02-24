@@ -36,6 +36,10 @@ where:
  - **createCanvas(element)** - creates `canvasTree` object
     - `element` canvas DOMElement
  - **canvasTree.update(tree)** - render tree on canvas
+ - **canvasTree.setMatrixListener(callback(matrix))** - sets the callback that will be called
+      when [transformation matrix](https://goo.gl/SLKWk7) is changed. Callback receive
+      `matrix` itself as an argument.
+ - **canvasTree.setMatrix(matix)** - sets transformation matrix
 
 ### Install
 
