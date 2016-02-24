@@ -51,7 +51,7 @@ export default function createCanvas(canvasElement) {
 	canvas.setMatrix = matirx => {
 		canvas.matrix = matirx;
 		canvas.ctx.setTransform.apply(canvas.ctx, matirx);
-		if(canvas.matrixListener_) this.matrixListener_(this.matrix);
+		if(canvas.matrixListener_) canvas.matrixListener_(canvas.matrix);
 	};
 
 	canvas.getObject_ = getObject.bind(canvas);
