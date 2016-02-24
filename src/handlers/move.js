@@ -8,7 +8,7 @@ export default function handleMove(e){
 	// 1. first - handle hover
 	const {x, y} = getXY(e);
 	const object = this.getObject(x, y);
-	styleCursor(this, object);
+	styleCursor(this, this.dragObject || object);
 	if(this.hoveredObject !== object) {
 		this.hoveredObject = object;
 		redraw(this);
