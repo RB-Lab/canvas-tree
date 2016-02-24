@@ -5,7 +5,7 @@ export default function handleEnd(e){
 	this.panFlag = false;
 	if(!this.dragFlag) return;
 	const {x, y} = getXY(e);
-	const object = this.getObject(x, y);
+	const object = this.getObject_(x, y);
 	checkHandler(this, 'onDragEnd')(object, x, y);
 	checkHandler(this, 'onDragEnd')(this.dragObject, x, y);
 	this.canvas.style.cursor = 'default';

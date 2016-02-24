@@ -9,7 +9,7 @@ export default function handleClick(e){
 		return;
 	}
 	const c = getXY(e);
-	const object = this.getObject(c.x, c.y);
+	const object = this.getObject_(c.x, c.y);
 	checkHandler(this, 'onClick')(object, c.x, c.y);
 	styleCursor(this, object);
 }

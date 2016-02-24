@@ -3,5 +3,5 @@ import checkHandler from './check-handler';
 
 export default function handleDblClick(e){
 	const {x, y} = getXY(e);
-	checkHandler(this, 'onDoubleClick')(this.getObject(x, y), x, y);
+	checkHandler(this, 'onDoubleClick')(this.getObject_(x, y), x, y);
 }

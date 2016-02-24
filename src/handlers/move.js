@@ -3,11 +3,10 @@ import redraw from '../utils/redraw';
 import styleCursor from '../utils/style-cursor';
 import checkHandler from './check-handler';
 
-
 export default function handleMove(e){
 	// 1. first - handle hover
 	const {x, y} = getXY(e);
-	const object = this.getObject(x, y);
+	const object = this.getObject_(x, y);
 	styleCursor(this, this.dragObject || object);
 	if(this.hoveredObject !== object) {
 		this.hoveredObject = object;

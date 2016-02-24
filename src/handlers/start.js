@@ -13,7 +13,7 @@ function getDragObject(object){
 
 export default function handleStart(e){
 	const {x, y} = getXY(e);
-	const object = this.getObject(x, y);
+	const object = this.getObject_(x, y);
 	// first - call direct handler
 	checkHandler(this, 'onDragStart')(object, x, y);
 	// then deal with pan mode - if it is root node

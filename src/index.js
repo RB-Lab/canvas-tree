@@ -44,7 +44,7 @@ export default function createCanvas(canvasElement) {
 
 	window.c = canvas;
 	canvas.update = updateCanvas.bind(canvas);
-	canvas.getObject = getObject.bind(canvas);
+	canvas.getObject_ = getObject.bind(canvas);
 	canvas.translate_ = translate.bind(canvas);
 	canvas.scale_ = scale.bind(canvas);
 	canvas.translate_ = translate.bind(canvas);
